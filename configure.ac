@@ -46,28 +46,9 @@ AS_IF([test "x$enable_pty" = "xyes"], [
 	AC_DEFINE(ENABLE_PTY, [1], [Enable pseudo terminal support.])
 ])
 
-# Example applications.
-AC_ARG_ENABLE([examples],
-	[AS_HELP_STRING([--enable-examples=@<:@yes/no@:>@],
-		[Build example applications @<:@default=yes@:>@])],
-	[], [enable_examples=yes])
-AM_CONDITIONAL([ENABLE_EXAMPLES], [test "x$enable_examples" = "xyes"])
-
-# Documentation.
-AC_ARG_ENABLE([doc],
-	[AS_HELP_STRING([--enable-doc=@<:@yes/no@:>@],
-		[Build documentation @<:@default=yes@:>@])],
-	[], [enable_doc=yes])
-AM_CONDITIONAL([ENABLE_DOC], [test "x$enable_doc" = "xyes"])
-
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_CC_C99
-AC_CHECK_PROGS([DOXYGEN], [doxygen])
-AC_CHECK_PROGS([MANDOC], [mandoc])
-
-AM_CONDITIONAL([HAVE_DOXYGEN],[test -n "$DOXYGEN"])
-AM_CONDITIONAL([HAVE_MANDOC],[test -n "$MANDOC"])
 
 # Enable automake silent build rules.
 m4_ifdef([AM_SILENT_RULES],[AM_SILENT_RULES([yes])])
@@ -238,10 +219,7 @@ AC_CONFIG_FILES([
    include/libdivecomputer/Makefile
    include/libdivecomputer/version.h
    src/Makefile
-   doc/Makefile
-   doc/doxygen.cfg
-   doc/man/Makefile
-   examples/Makefile
+   tools/Makefile
 ])
 AC_OUTPUT
 AC_MSG_NOTICE([
@@ -258,8 +236,6 @@ AC_MSG_NOTICE([
 
     Logging              : $enable_logging
     Pseudo terminal      : $enable_pty
-    Example applications : $enable_examples
-    Documentation        : $enable_doc
 
   Transports:
 
